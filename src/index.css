@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Self-hosted brand fonts (SIL Open Font License).
+   Served from our own origin, so first paint is never blocked waiting on a
+   third-party font host, and there is no extra DNS/TLS handshake.
+   Plus Jakarta Sans ships as a variable font: one file covers weights 400–700.
+   The latin-ext file is what renders the ₹ rupee glyph inside prices.
+   --------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans-var-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans-var-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/playfair-display-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --color-warm-bg: #FAF8F5;
+  --color-warm-surface: #F4EFEB;
+  --color-warm-border: #E8E2D9;
+  --color-accent-rose: #D96B5B;
+  --color-accent-blush: #FCECE9;
+  --color-accent-mint: #E3F2ED;
+  --color-accent-butter: #FEF6E4;
+}
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAF8F5;
+  color: #1C1917;
+}
+
+/* Hide scrollbar for clean mobile horizontal carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area support for iOS home indicators */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* Smooth tap highlights */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Respect visitors who ask for less motion — also saves animation work. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Announcement marquee — compositor-only transform, no layout work per frame. */
+.marquee-track {
+  animation: marquee-scroll 26s linear infinite;
+  will-change: transform;
+}
+
+/* Slower crawl for the live comment feed. */
+.marquee-slow {
+  animation-duration: 42s;
+}
+
+/* Red-envelope drop (红包雨) */
+@keyframes envelope-fall {
+  0% {
+    transform: translateY(-18vh) rotate(var(--tilt, 0deg));
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(62vh) rotate(calc(var(--tilt, 0deg) * -1));
+    opacity: 1;
+  }
+}
+
+.envelope-fall {
+  animation-name: envelope-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform;
+}
+
+/* Product carousel slide transitions — GPU-composited transforms */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-in-left {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(-30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.28s ease-out;
+  will-change: transform, opacity;
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.28s ease-out;
+  will-change: transform, opacity;
+}
+
+/* Paint isolation for heavy below-fold sections */
+section, aside {
+  contain: layout style;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin,
+  .animate-bounce,
+  .marquee-track,
+  .envelope-fall,
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-slide-in-right {
+    animation: none !important;
+  }
+}

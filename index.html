@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vidkwaii | Precision Eyebrow & Facial Hair Removal Razor</title>
+    <meta name="description" content="Vidkwaii — Mobile-optimized minimal beauty store for precision eyebrow and facial dermaplaning razors. Painless peach fuzz removal and silky glass skin." />
+    <meta property="og:title" content="Vidkwaii | Precision Eyebrow & Facial Hair Removal Razor" />
+    <meta property="og:description" content="Vidkwaii — Mobile-optimized minimal beauty store for precision eyebrow and facial dermaplaning razors. Painless peach fuzz removal and silky glass skin." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#FAF8F5" />
+
+    <!-- DNS prefetch for Supabase -->
+    <link rel="dns-prefetch" href="https://xuhfscgqyebrmugqgkgq.supabase.co" />
+    <link rel="preconnect" href="https://xuhfscgqyebrmugqgkgq.supabase.co" crossorigin />
+
+    <!-- Critical: preload first visible images — hero poster + first slide thumbnail -->
+    <link rel="preload" as="image" href="/media/demo-video-poster.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/media/slide1.webp" fetchpriority="low">
+
+    <script>
+      // Preload the brand fonts only when the connection can afford it, so text paints
+      // in the final font with no swap on fast links — and never delays a slow one.
+      (function () {
+        var c = navigator.connection;
+        if (c && (c.saveData || /2g|3g/i.test(c.effectiveType || ''))) return;
+        ['plus-jakarta-sans-var-latin.woff2', 'playfair-display-700-latin.woff2'].forEach(function (file) {
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'font';
+          link.type = 'font/woff2';
+          link.crossOrigin = 'anonymous';
+          link.href = '/fonts/' + file;
+          document.head.appendChild(link);
+        });
+      })();
+    </script>
+
+    <!-- Inline critical above-fold skeleton so the page isn't blank while JS loads -->
+    <style>
+      body { margin: 0; background: #FAF8F5; }
+      #root:empty {
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #root:empty::after {
+        content: '';
+        width: 28px;
+        height: 28px;
+        border: 2.5px solid #E8E2D9;
+        border-top-color: #1C1917;
+        border-radius: 50%;
+        animation: spin .7s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
